@@ -12,14 +12,6 @@ function countEntrants(entrants) {
   return resultado;
 }
 
-/*
-    prices: {
-    adult: 49.99,
-    senior: 24.99,
-    child: 20.99,
-  },
-*/
-
 function calculateEntry(entrants) {
   if (entrants === undefined || Object.keys(entrants).length === 0) {
     return 0;
