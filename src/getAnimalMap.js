@@ -1,5 +1,7 @@
 const data = require('../data/zoo_data');
 
+// const { species } = data;
+
 const funcaoReducer = (objeto) => {
   const resultado = objeto;
   resultado.NE = data.species.filter((local) => local.location === 'NE').map((nome) => nome.name);
@@ -10,25 +12,60 @@ const funcaoReducer = (objeto) => {
 };
 const criaMapa = () => data.species.reduce(funcaoReducer, {});
 
-const funcaoReducerNome = (objetoNome) => {
-  const resultadoNome = objetoNome;
-  resultadoNome.NE = data.species.filter((local) => local.location === 'NE');
-  resultadoNome.NW = data.species.filter((local) => local.location === 'NW');
-  resultadoNome.SE = data.species.filter((local) => local.location === 'SE');
-  resultadoNome.SW = data.species.filter((local) => local.location === 'SW');
-  return resultadoNome;
+/* const pegaEspecie = (elemento, regiao) => elemento
+  .filter((item) => item.location.includes(regiao)).map((nome) => nome.name);
+ */
+/* const animalRegiao = species.filter((specie) => specie.location === especie.location)
+  .map((animal) => animal.name);
+const nomesAnimais0 = animalRegiao.map((animal) => species
+  .find((animalFind) => animalFind.name === animal).residents
+  .map((residente) => residente.name));
+const nomesAnimais1 = species
+  .find((animalFind) => animalFind.name === animalRegiao[1]).residents
+  .map((residente) => residente.name);
+
+const criaMapaNome = () => {
+  const obj = {};
+  species.forEach((especie) => {
+    obj[especie.location] = [];
+    const animais = {
+      [animalRegiao[0]]: nomesAnimais0,
+      [animalRegiao[1]]: nomesAnimais1,
+    };
+    obj[especie.location].push(animais);
+  });
+  return obj;
 };
 
-const criaMapaNome = () => data.species.reduce(funcaoReducerNome, {});
+{
+      NE: [
+        { lions: ['Zena', 'Maxwell', 'Faustino', 'Dee'] },
+        { giraffes: ['Gracia', 'Antone', 'Vicky', 'Clay', 'Arron', 'Bernard'] },
+      ],
+      NW: [
+        { tigers: ['Shu', 'Esther'] },
+        { bears: ['Hiram', 'Edwardo', 'Milan'] },
+        { elephants: ['Ilana', 'Orval', 'Bea', 'Jefferson'] },
+      ],
+      SE: [
+        { penguins: ['Joe', 'Tad', 'Keri', 'Nicholas'] },
+        { otters: ['Neville', 'Lloyd', 'Mercedes', 'Margherita'] },
+      ],
+      SW: [
+        { frogs: ['Cathey', 'Annice'] },
+        { snakes: ['Paulette', 'Bill'] },
+      ],
+    };
+*/
 
 function getAnimalMap(options) {
   if (options === undefined
     || !Object.keys(options).includes('includeNames')) {
     return criaMapa();
   }
-  return console.table(criaMapaNome());
+//   return criaMapaNome();
 }
 
-console.log(getAnimalMap({ includeNames: true }));
+console.log(getAnimalMap());
 
 module.exports = getAnimalMap;

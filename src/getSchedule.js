@@ -1,30 +1,73 @@
 const data = require('../data/zoo_data');
 
-// const [ name, availability ] = data.species;
-const diasSemana = Object.entries(data.hours);
-/* [
-  [ 'Tuesday', { open: 8, close: 6 } ],
-  [ 'Wednesday', { open: 8, close: 6 } ],
-  [ 'Thursday', { open: 10, close: 8 } ],
-  [ 'Friday', { open: 10, close: 8 } ],
-  [ 'Saturday', { open: 8, close: 10 } ],
-  [ 'Sunday', { open: 8, close: 8 } ],
-  [ 'Monday', { open: 0, close: 0 } ]
-]
- */
-const funcaoReducer = (acc, dia, index) => {
-  console.log(acc);
-  console.log(dia);
-  console.log(index);
+const { species, hours } = data;
+const diasAnimais = ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday',
+  'lions', 'tigers', 'bears', 'penguins', 'otters', 'frogs', 'snakes', 'elephants', 'giraffes'];
+const soDias = ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday'];
+
+const funcaoReducer = (acc, dia, index, array) => {
+  const diaSemana = Object.values(array)[index][0];
+  const horaOpen = Object.values(array)[index][1].open;
+  const horaClose = Object.values(array)[index][1].close;
+  const arrayFilter = species.filter((specie) => specie.availability.includes(diaSemana));
+  const arrayMap = arrayFilter.map((nome) => nome.name);
+  if (diaSemana !== 'Monday') {
+    acc[diaSemana] = {
+      officeHour: `Open from ${horaOpen}am until ${horaClose}pm`,
+      exhibition: arrayMap,
+    };
+  } else {
+    acc[diaSemana] = {
+      officeHour: 'CLOSED',
+      exhibition: 'The zoo will be closed!',
+    };
+  }
+  return acc;
 };
 
-const criaGrade = () => diasSemana.reduce(funcaoReducer, {});
+const imprimeSegunda = () => {
+  const segundaFeira = {
+    Monday: {
+      officeHour: 'CLOSED',
+      exhibition: 'The zoo will be closed!',
+    },
+  };
+  return segundaFeira;
+};
+
+const criaHorarios = (param) => {
+  const horario = {};
+  const arrayFilter = species.filter((specie) => specie.availability.includes(param));
+  const arrayMap = arrayFilter.map((nome) => nome.name);
+  soDias.forEach((elemento, index, array) => {
+    if (param === elemento) {
+      horario[elemento] = {
+        officeHour: `Open from ${hours[elemento].open}am until ${hours[elemento].close}pm`,
+        exhibition: arrayMap,
+      };
+    }
+  });
+  return horario;
+};
+
+const criaAnimal = (param) => {
+  const arrayFilter = species.find((specie) => specie.name.includes(param)).availability;
+  return arrayFilter;
+};
+
+const criaGrade = () => Object.entries(data.hours).reduce(funcaoReducer, {});
 
 function getSchedule(scheduleTarget) {
-  if (scheduleTarget === undefined) {
+  if (scheduleTarget === undefined || !diasAnimais.includes(scheduleTarget)) {
     return criaGrade();
   }
+  if (scheduleTarget === 'Monday') {
+    return imprimeSegunda();
+  }
+  if (soDias.includes(scheduleTarget)) {
+    return criaHorarios(scheduleTarget);
+  }
+  return criaAnimal(scheduleTarget);
 }
 
-console.log(getSchedule());
 module.exports = getSchedule;
