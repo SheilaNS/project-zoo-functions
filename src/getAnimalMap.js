@@ -21,26 +21,64 @@ const criaMapaNome = () => species.reduce((acc, elem) => {
   return acc;
 }, {});
 
+const criaMapaNomeSort = () => species.reduce((acc, elem) => {
+  acc[elem.location] = [];
+  species.forEach((animal) => {
+    if (animal.location === elem.location) {
+      return acc[elem.location].push({
+        [animal.name]: animal.residents.map((item) => item.name).sort(),
+      });
+    }
+  });
+  return acc;
+}, {});
+
+const criaMapaNomeSex = (param) => species.reduce((acc, elem) => {
+  acc[elem.location] = [];
+  species.forEach((animal) => {
+    if (animal.location === elem.location) {
+      return acc[elem.location].push({
+        [animal.name]: animal.residents.filter((item) => item.sex === param.sex)
+          .map((item) => item.name),
+      });
+    }
+  });
+  return acc;
+}, {});
+
+const criaMapaNomeSexSort = (param) => species.reduce((acc, elem) => {
+  acc[elem.location] = [];
+  species.forEach((animal) => {
+    if (animal.location === elem.location) {
+      return acc[elem.location].push({
+        [animal.name]: animal.residents.filter((item) => item.sex === param.sex)
+          .map((item) => item.name).sort(),
+      });
+    }
+  });
+  return acc;
+}, {});
+
 const verificaOptions = (param) => {
   if (Object.keys(param).includes('sex') && Object.keys(param).includes('sorted')) {
-    return 'com sexo e sorted';
+    return criaMapaNomeSexSort(param);
   }
   if (Object.keys(param).includes('sorted')) {
-    return 'if com sorted';
+    return criaMapaNomeSort();
   }
   if (Object.keys(param).includes('sex')) {
-    return 'if com sex';
+    return criaMapaNomeSex(param);
   }
   return criaMapaNome();
 };
 
 function getAnimalMap(options) {
-  if (!options || !Object.keys(options).includes('includeNames')) {
+  if (!options || !Object.keys(options).includes('includeNames', undefined)) {
     console.log('if undefined e sem nome');
     return criaMapa();
   }
   return verificaOptions(options);
 }
 
-console.log(getAnimalMap());
+console.log(getAnimalMap({ includeNames: true, sex: 'female', sorted: true }));
 module.exports = getAnimalMap;
