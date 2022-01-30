@@ -1,7 +1,6 @@
 const data = require('../data/zoo_data');
 
 const { employees, species } = data;
-
 const firstNames = employees.map((nome) => nome.firstName);
 const lastNames = employees.map((nome) => nome.lastName);
 const allIds = employees.map((ids) => ids.id);

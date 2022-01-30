@@ -1,12 +1,11 @@
 const data = require('../data/zoo_data');
-
 // Feito com a ajuda de Thiago Zardo
 const { species, hours } = data;
 const diasAnimais = ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday',
   'lions', 'tigers', 'bears', 'penguins', 'otters', 'frogs', 'snakes', 'elephants', 'giraffes'];
 const soDias = ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday'];
 
-const funcaoReducer = (acc, dia, index, array) => {
+const criaGrade = () => Object.entries(data.hours).reduce((acc, dia, index, array) => {
   const diaSemana = Object.values(array)[index][0];
   const horaOpen = Object.values(array)[index][1].open;
   const horaClose = Object.values(array)[index][1].close;
@@ -24,9 +23,7 @@ const funcaoReducer = (acc, dia, index, array) => {
     };
   }
   return acc;
-};
-
-const criaGrade = () => Object.entries(data.hours).reduce(funcaoReducer, {});
+}, {});
 
 const imprimeSegunda = () => {
   const segundaFeira = {
@@ -71,5 +68,4 @@ function getSchedule(scheduleTarget) {
   return criaAnimal(scheduleTarget);
 }
 
-console.log(getSchedule('Tuesday'));
 module.exports = getSchedule;

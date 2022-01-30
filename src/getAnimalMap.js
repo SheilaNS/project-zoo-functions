@@ -1,71 +1,46 @@
 const data = require('../data/zoo_data');
+// Feito com a ajuda de Danillo, Thiago Zardo e Leo Araujo
+const { species } = data;
 
-// const { species } = data;
+const criaMapa = () => species.reduce((acc, elem) => {
+  const animalFilter = species.filter((item) => item.location === elem.location);
+  const animalMap = animalFilter.map((item) => item.name);
+  acc[elem.location] = animalMap;
+  return acc;
+}, {});
 
-const funcaoReducer = (objeto) => {
-  const resultado = objeto;
-  resultado.NE = data.species.filter((local) => local.location === 'NE').map((nome) => nome.name);
-  resultado.NW = data.species.filter((local) => local.location === 'NW').map((nome) => nome.name);
-  resultado.SE = data.species.filter((local) => local.location === 'SE').map((nome) => nome.name);
-  resultado.SW = data.species.filter((local) => local.location === 'SW').map((nome) => nome.name);
-  return resultado;
-};
-const criaMapa = () => data.species.reduce(funcaoReducer, {});
-
-/* const pegaEspecie = (elemento, regiao) => elemento
-  .filter((item) => item.location.includes(regiao)).map((nome) => nome.name);
- */
-/* const animalRegiao = species.filter((specie) => specie.location === especie.location)
-  .map((animal) => animal.name);
-const nomesAnimais0 = animalRegiao.map((animal) => species
-  .find((animalFind) => animalFind.name === animal).residents
-  .map((residente) => residente.name));
-const nomesAnimais1 = species
-  .find((animalFind) => animalFind.name === animalRegiao[1]).residents
-  .map((residente) => residente.name);
-
-const criaMapaNome = () => {
-  const obj = {};
-  species.forEach((especie) => {
-    obj[especie.location] = [];
-    const animais = {
-      [animalRegiao[0]]: nomesAnimais0,
-      [animalRegiao[1]]: nomesAnimais1,
-    };
-    obj[especie.location].push(animais);
+const criaMapaNome = () => species.reduce((acc, elem) => {
+  acc[elem.location] = [];
+  species.forEach((animal) => {
+    if (animal.location === elem.location) {
+      return acc[elem.location].push({
+        [animal.name]: animal.residents.map((item) => item.name),
+      });
+    }
   });
-  return obj;
-};
+  return acc;
+}, {});
 
-{
-      NE: [
-        { lions: ['Zena', 'Maxwell', 'Faustino', 'Dee'] },
-        { giraffes: ['Gracia', 'Antone', 'Vicky', 'Clay', 'Arron', 'Bernard'] },
-      ],
-      NW: [
-        { tigers: ['Shu', 'Esther'] },
-        { bears: ['Hiram', 'Edwardo', 'Milan'] },
-        { elephants: ['Ilana', 'Orval', 'Bea', 'Jefferson'] },
-      ],
-      SE: [
-        { penguins: ['Joe', 'Tad', 'Keri', 'Nicholas'] },
-        { otters: ['Neville', 'Lloyd', 'Mercedes', 'Margherita'] },
-      ],
-      SW: [
-        { frogs: ['Cathey', 'Annice'] },
-        { snakes: ['Paulette', 'Bill'] },
-      ],
-    };
-*/
+const verificaOptions = (param) => {
+  if (Object.keys(param).includes('sex') && Object.keys(param).includes('sorted')) {
+    return 'com sexo e sorted';
+  }
+  if (Object.keys(param).includes('sorted')) {
+    return 'if com sorted';
+  }
+  if (Object.keys(param).includes('sex')) {
+    return 'if com sex';
+  }
+  return criaMapaNome();
+};
 
 function getAnimalMap(options) {
-  if (options === undefined
-    || !Object.keys(options).includes('includeNames')) {
+  if (!options || !Object.keys(options).includes('includeNames')) {
+    console.log('if undefined e sem nome');
     return criaMapa();
   }
-//   return criaMapaNome();
+  return verificaOptions(options);
 }
 
 console.log(getAnimalMap());
-
 module.exports = getAnimalMap;
