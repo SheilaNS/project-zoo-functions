@@ -1,16 +1,40 @@
-# 🚧 README em construção 🚧
+# :panda_face: Projeto Zoo Functions :paw_prints:
 
-<!-- Olá, Tryber!
+## :page_facing_up: Sobre
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+Projeto do Bloco 8 - Higher Order Functions do JavaScript ES6 do curso de Desenvolvimento Web da [Trybe](https://www.betrybe.com).<br>
+Esse projeto simula um sistema de relatório de um zoológico que possui informações a respeito dos animais presentes no zoológico, colaboradores, horários de funcionamento e uma tabela de preços que varia de acordo com a idade das pessoas que o visitam.<br><br>
+Quantidade de requisitos: 10<br>
+Requisitos feitos: 10
 
-É essencial que você preencha esse documento por conta própria, ok?
+## :computer: Habilidades desenvolvidas
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+- Utilizar novas funcionalides do ES6, como arrow functions, template literals, spread operator, parâmetro rest e object destructuring;
+- Compor objetos e ler suas informações com diferentes métodos;
+- Manipular arrays com funções como map, filter e reduce.
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
+## :speaking_head: Linguagens utilizadas
+<img alt="JavaScript icon" height="50px" width="60px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" />
 
--->
+## :building_construction: Estrutura do projeto
+
+- data
+  - zoo_data.js
+- src
+  - calculateEntry.js
+  - countAnimals.js
+  - getAnimalMap.js
+  - getAnimalsOlderThan.js
+  - getEmployeeByName.js
+  - getEmployeesCoverage.js
+  - getOldestFromFirstSpecies.js
+  - getRelatedEmployees.js
+  - getSchedule.js
+  - getSpeciesByIds.js
+- .editorconfig
+- .eslintignore
+- .eslintrc.json
+- .gitignore
+- README.md
+- package-lock.json
+- package.json
