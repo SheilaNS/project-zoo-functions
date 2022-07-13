@@ -35,6 +35,7 @@ Requisitos feitos: 10
 - .eslintignore
 - .eslintrc.json
 - .gitignore
+- index.html
 - README.md
 - package-lock.json
 - package.json
